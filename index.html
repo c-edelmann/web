@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C. Edelmann Goldankauf Berlin — Wir kommen zu Ihnen</title>
+  <meta name="description" content="C. Edelmann Goldankauf Berlin. Diskreter, professioneller Hausbesuch. Faire Preise, Echtzeitüberweisung, Zahlung auch in Krypto." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --gold: #C9A84C;
+      --gold-dim: rgba(201,168,76,0.15);
+      --bg: #0c0c0b;
+      --bg2: #141410;
+      --bg3: #0f0f0e;
+      --border: #2a2820;
+      --border2: #1e1c16;
+      --text: #e8e0d0;
+      --muted: #7a7060;
+      --faint: #5a5448;
+      --veryfaint: #3a3830;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Outfit', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 15px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 680px; margin: 0 auto; border-left: 0.5px solid var(--border); border-right: 0.5px solid var(--border); }
+
+    /* NAV */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 32px;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 22px;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-coin { flex-shrink: 0; }
+    .nav-langs { display: flex; gap: 12px; align-items: center; }
+    .nav-lang {
+      font-size: 10px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: var(--sans);
+      transition: color 0.2s;
+    }
+    .nav-lang.active { color: var(--gold); }
+    .nav-lang:hover { color: var(--gold); }
+    .nav-divider { color: var(--border); font-size: 10px; }
+
+    /* SECTIONS */
+    section { border-bottom: 0.5px solid var(--border); }
+
+    .section-inner { padding: 56px 32px; }
+
+    .section-label {
+      font-size: 9px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      opacity: 0.6;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 30px;
+      font-weight: 300;
+      color: var(--text);
+      margin-bottom: 28px;
+      line-height: 1.2;
+    }
+
+    /* HERO */
+    .hero { text-align: center; }
+    .hero .section-inner { padding: 72px 32px 60px; }
+
+    .hero-eyebrow {
+      font-size: 9px;
+      letter-spacing: 5px;
+      color: var(--gold);
+      opacity: 0.7;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .hero-headline {
+      font-family: var(--serif);
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+
+    .hero-headline em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 420px;
+      margin: 0 auto 36px;
+    }
+
+    .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 14px 28px;
+      border: none;
+      font-family: var(--sans);
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--gold);
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 13px 28px;
+      border: 0.5px solid var(--gold);
+      font-family: var(--sans);
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s;
+    }
+    .btn-secondary:hover { background: var(--gold-dim); }
+
+    .hero-rule {
+      width: 40px;
+      height: 0.5px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 40px auto 0;
+    }
+
+    /* STEPS */
+    .steps { display: flex; flex-direction: column; gap: 28px; }
+    .step { display: flex; gap: 20px; align-items: flex-start; }
+    .step-num {
+      font-family: var(--serif);
+      font-size: 36px;
+      color: var(--gold);
+      opacity: 0.3;
+      line-height: 1;
+      min-width: 28px;
+    }
+    .step-title { font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 4px; }
+    .step-text { font-size: 12px; color: var(--muted); line-height: 1.7; }
+
+    /* TRUST GRID */
+    .trust-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .trust-card { background: var(--bg2); border: 0.5px solid var(--border); padding: 20px 18px; }
+    .trust-icon { width: 22px; height: 22px; margin-bottom: 12px; opacity: 0.8; }
+    .trust-emoji { font-size: 22px; margin-bottom: 12px; display: block; }
+    .trust-title { font-size: 13px; font-weight: 500; color: var(--text); margin-bottom: 5px; }
+    .trust-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+    /* BUY LIST */
+    .buy-list { display: flex; flex-direction: column; }
+    .buy-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 0.5px solid var(--border2);
+    }
+    .buy-item:last-child { border-bottom: none; }
+    .buy-dot { width: 5px; height: 5px; background: var(--gold); opacity: 0.5; flex-shrink: 0; }
+    .buy-text { font-size: 13px; color: #a09880; }
+
+    /* CONDITIONS */
+    .info-row { display: flex; gap: 14px; margin-bottom: 20px; }
+    .info-card { flex: 1; background: var(--bg2); border: 0.5px solid var(--border); padding: 20px 18px; }
+    .info-val { font-family: var(--serif); font-size: 32px; color: var(--gold); margin-bottom: 6px; }
+    .info-label { font-size: 11px; color: var(--muted); line-height: 1.5; }
+    .info-note { font-size: 11px; color: var(--faint); margin-top: 20px; line-height: 1.6; font-style: italic; }
+
+    .payment-strip {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      padding: 16px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-top: 14px;
+    }
+    .payment-icon { width: 30px; height: 30px; flex-shrink: 0; }
+    .payment-title { font-size: 12px; font-weight: 500; color: var(--text); margin-bottom: 3px; }
+    .payment-sub { font-size: 11px; color: var(--muted); }
+
+    /* CRYPTO */
+    .crypto-intro { font-size: 12px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+    .crypto-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+    .crypto-card {
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      padding: 16px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .crypto-symbol { font-family: var(--serif); font-size: 20px; font-weight: 600; min-width: 40px; }
+    .crypto-name { font-size: 11px; color: var(--muted); }
+    .crypto-note {
+      font-size: 11px;
+      color: var(--faint);
+      line-height: 1.6;
+      font-style: italic;
+      padding: 14px 16px;
+      border: 0.5px solid var(--border);
+      background: var(--bg3);
+    }
+
+    /* WHATSAPP STRIP */
+    .wa-strip {
+      background: #1a1e14;
+      border-top: 0.5px solid #2a3018;
+      border-bottom: 0.5px solid #2a3018;
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .wa-text { font-size: 12px; color: #7a9060; }
+    .wa-btn {
+      background: #3a6a20;
+      color: #e8f0d8;
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      padding: 10px 18px;
+      border: none;
+      cursor: pointer;
+      font-family: var(--sans);
+      font-weight: 500;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-block;
+      transition: opacity 0.2s;
+    }
+    .wa-btn:hover { opacity: 0.85; }
+
+    /* FORM */
+    .form-field { margin-bottom: 16px; }
+    .form-label {
+      font-size: 9px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      display: block;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .form-input, .form-textarea, .form-select {
+      width: 100%;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      padding: 12px 14px;
+      font-family: var(--sans);
+      outline: none;
+      transition: border-color 0.2s;
+      appearance: none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color: var(--veryfaint); }
+    .form-input:focus, .form-textarea:focus, .form-select:focus { border-color: var(--gold); }
+    .form-textarea { resize: none; height: 90px; }
+    .form-select { cursor: pointer; }
+    .form-select option { background: var(--bg2); }
+
+    .form-submit {
+      width: 100%;
+      background: var(--gold);
+      color: var(--bg);
+      font-size: 11px;
+      letter-spacing: 2px;
+      padding: 16px;
+      border: none;
+      font-family: var(--sans);
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: opacity 0.2s;
+    }
+    .form-submit:hover { opacity: 0.85; }
+
+    .form-note {
+      font-size: 10px;
+      color: var(--faint);
+      margin-top: 12px;
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    /* GOLDRECHNER */
+    .calc-wrap { padding: 52px 32px; border-top: 0.5px solid var(--border); }
+    .calc-spot { font-size: 11px; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 6px; }
+    .calc-spot span { color: var(--gold); font-weight: 500; }
+    .calc-controls { display: flex; gap: 12px; margin: 24px 0; flex-wrap: wrap; }
+    .calc-select, .calc-input {
+      flex: 1; min-width: 140px;
+      background: var(--bg2);
+      border: 0.5px solid var(--border);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .calc-select:focus, .calc-input:focus { border-color: var(--gold); }
+    .calc-select option { background: var(--bg2); }
+    .calc-result { margin-top: 8px; border: 0.5px solid var(--border); }
+    .calc-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 20px;
+      border-bottom: 0.5px solid var(--border2);
+      font-size: 13px;
+    }
+    .calc-row:last-child { border-bottom: none; }
+    .calc-row-label { color: var(--muted); letter-spacing: 0.5px; }
+    .calc-row-val { font-weight: 500; color: var(--text); }
+    .calc-row.edelmann { background: var(--bg2); }
+    .calc-row.edelmann .calc-row-label { color: var(--gold); }
+    .calc-row.edelmann .calc-row-val { color: var(--gold); font-size: 16px; }
+    .calc-row.advantage { background: rgba(201,168,76,0.06); }
+    .calc-row.advantage .calc-row-label { color: var(--gold); font-weight: 500; }
+    .calc-row.advantage .calc-row-val { color: var(--gold); font-weight: 600; font-size: 15px; }
+    .calc-note { font-size: 10px; color: var(--faint); margin-top: 12px; font-style: italic; line-height: 1.6; }
+    .calc-empty { text-align: center; padding: 32px; color: var(--faint); font-size: 13px; }
+
+    /* FOOTER */
+    footer {
+      padding: 36px 32px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: var(--serif);
+      font-size: 15px;
+      letter-spacing: 4px;
+      color: var(--gold);
+      opacity: 0.5;
+      margin-bottom: 16px;
+    }
+    .footer-links { display: flex; gap: 20px; justify-content: center; margin-bottom: 14px; flex-wrap: wrap; }
+    .footer-link { font-size: 10px; letter-spacing: 1px; color: var(--faint); cursor: pointer; text-decoration: none; }
+    .footer-link:hover { color: var(--gold); }
+    .footer-copy { font-size: 10px; color: var(--veryfaint); letter-spacing: 1px; }
+
+    /* LANGUAGE TOGGLE */
+    [data-lang="en"] { display: none; }
+    body.lang-en [data-lang="de"] { display: none; }
+    body.lang-en [data-lang="en"] { display: block; }
+    body.lang-en .nav-lang[data-switch="en"] { color: var(--gold); }
+    body.lang-en .nav-lang[data-switch="de"] { color: var(--muted); }
+
+    /* RESPONSIVE */
+    @media (max-width: 480px) {
+      .section-inner { padding: 40px 20px; }
+      .hero .section-inner { padding: 52px 20px 44px; }
+      .hero-headline { font-size: 32px; }
+      nav { padding: 16px 20px; }
+      .wa-strip { padding: 16px 20px; }
+      footer { padding: 28px 20px; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .crypto-grid { grid-template-columns: 1fr; }
+      .info-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <svg class="nav-coin" width="22" height="22" viewBox="0 0 22 22" fill="none">
+        <circle cx="11" cy="11" r="9.5" stroke="#C9A84C" stroke-width="0.8"/>
+        <circle cx="11" cy="11" r="7.7" stroke="#C9A84C" stroke-width="0.5"/>
+        <circle cx="11" cy="11" r="1.4" fill="#C9A84C"/>
+        <line x1="11" y1="3.3" x2="11" y2="1.5" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="11" y1="20.5" x2="11" y2="18.7" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="3.3" y1="11" x2="1.5" y2="11" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="20.5" y1="11" x2="18.7" y2="11" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="5.4" y1="5.4" x2="4.1" y2="4.1" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="17.9" y1="17.9" x2="16.6" y2="16.6" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="16.6" y1="5.4" x2="17.9" y2="4.1" stroke="#C9A84C" stroke-width="0.7"/>
+        <line x1="4.1" y1="17.9" x2="5.4" y2="16.6" stroke="#C9A84C" stroke-width="0.7"/>
+      </svg>
+      C. EDELMANN
+    </a>
+    <div class="nav-langs">
+      <button class="nav-lang active" data-switch="de" onclick="setLang('de')">DE</button>
+      <span class="nav-divider">|</span>
+      <button class="nav-lang" data-switch="en" onclick="setLang('en')">EN</button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="section-inner">
+      <div class="hero-eyebrow">Goldankauf · Berlin · Hausbesuch</div>
+      <h1 class="hero-headline">
+        <span data-lang="de">Gold zu Geld,<br>wie's Ihnen <em>gefällt</em> —<br>wir kommen zu Ihnen.</span>
+        <span data-lang="en">Turn your gold to cash,<br>your <em>way</em> —<br>we come to you.</span>
+      </h1>
+      <p class="hero-sub">
+        <span data-lang="de">C. Edelmann Goldankauf bietet Ihnen einen diskreten, professionellen Hausbesuch in Berlin. Kein Umweg, kein Stress — wir kaufen Ihr Gold direkt bei Ihnen zu Hause und zahlen sofort.</span>
+        <span data-lang="en">C. Edelmann Goldankauf offers you a discreet, professional home visit in Berlin. No detours, no stress — we buy your gold right at your door and pay immediately.</span>
+      </p>
+      <div class="hero-rule"></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Ablauf</span>
+        <span data-lang="en">Process</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">So einfach geht's</span>
+        <span data-lang="en">It's this simple</span>
+      </h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div>
+            <div class="step-title">
+              <span data-lang="de">Sie melden sich</span>
+              <span data-lang="en">You get in touch</span>
+            </div>
+            <div class="step-text">
+              <span data-lang="de">Schreiben Sie uns per WhatsApp oder Formular. Wir antworten innerhalb von 24 Stunden.</span>
+              <span data-lang="en">Write to us via WhatsApp or the contact form. We respond within 24 hours.</span>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div>
+            <div class="step-title">
+              <span data-lang="de">Wir kommen zu Ihnen</span>
+              <span data-lang="en">We come to you</span>
+            </div>
+            <div class="step-text">
+              <span data-lang="de">Wir vereinbaren einen Termin an einem Ort Ihrer Wahl — diskret, pünktlich und professionell.</span>
+              <span data-lang="en">We arrange an appointment at a place of your choice — discreet, punctual and professional.</span>
+            </div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div>
+            <div class="step-title">
+              <span data-lang="de">Sie erhalten Ihr Geld</span>
+              <span data-lang="en">You receive your money</span>
+            </div>
+            <div class="step-text">
+              <span data-lang="de">Wir schätzen Ihr Gold vor Ort und zahlen sofort — per Echtzeitüberweisung oder Kryptowährung nach Ihrer Wahl.</span>
+              <span data-lang="en">We assess your gold on the spot and pay instantly — via SEPA Instant transfer or cryptocurrency, as you prefer.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY C. EDELMANN -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Vertrauen</span>
+        <span data-lang="en">Trust</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Warum C. Edelmann?</span>
+        <span data-lang="en">Why C. Edelmann?</span>
+      </h2>
+      <div class="trust-grid">
+        <div class="trust-card">
+          <span class="trust-emoji">🛡️</span>
+          <div class="trust-title"><span data-lang="de">Sicherheit</span><span data-lang="en">Safety</span></div>
+          <div class="trust-text"><span data-lang="de">Keine Reise mit wertvollen Gegenständen durch die Stadt. Kein Risiko auf dem Weg.</span><span data-lang="en">No travel through the city with valuables. No risk on the way.</span></div>
+        </div>
+        <div class="trust-card">
+          <span class="trust-emoji">💵</span>
+          <div class="trust-title"><span data-lang="de">Faire Preise</span><span data-lang="en">Fair prices</span></div>
+          <div class="trust-text"><span data-lang="de">Tagesaktuelle Goldkurse. Transparente Bewertung vor Ort. Sofortige Auszahlung.</span><span data-lang="en">Daily gold rates. Transparent assessment on-site. Immediate payment.</span></div>
+        </div>
+        <div class="trust-card">
+          <span class="trust-emoji">🤫</span>
+          <div class="trust-title"><span data-lang="de">Diskretion</span><span data-lang="en">Discretion</span></div>
+          <div class="trust-text"><span data-lang="de">Kein Schaufenster, keine Warteschlange, keine neugierigen Blicke. Nur Sie und wir.</span><span data-lang="en">No shop windows, no queues, no curious eyes. Just you and us.</span></div>
+        </div>
+        <div class="trust-card">
+          <span class="trust-emoji">🛋️</span>
+          <div class="trust-title"><span data-lang="de">Bequemlichkeit</span><span data-lang="en">Comfort</span></div>
+          <div class="trust-text"><span data-lang="de">Termin nach Ihrem Zeitplan. Alles bequem bei Ihnen zu Hause, ohne Aufwand.</span><span data-lang="en">Appointment on your schedule. Everything comfortably at home, effortlessly.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHATSAPP STRIP AFTER WARUM -->
+  <div class="wa-strip">
+    <span class="wa-text">
+      <span data-lang="de">Direkt per WhatsApp anfragen</span>
+      <span data-lang="en">Contact us directly on WhatsApp</span>
+    </span>
+    <a href="https://wa.me/491639760738" class="wa-btn" target="_blank">WhatsApp</a>
+  </div>
+
+  <!-- WHAT WE BUY -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Ankauf</span>
+        <span data-lang="en">We buy</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Was wir ankaufen</span>
+        <span data-lang="en">What we buy</span>
+      </h2>
+      <div class="buy-list">
+        <div class="buy-item"><div class="buy-dot"></div><div class="buy-text"><span data-lang="de">Goldschmuck &amp; Bruchgold</span><span data-lang="en">Gold jewellery &amp; scrap gold</span></div></div>
+        <div class="buy-item"><div class="buy-dot"></div><div class="buy-text"><span data-lang="de">Goldmünzen &amp; Barren</span><span data-lang="en">Gold coins &amp; bars</span></div></div>
+        <div class="buy-item"><div class="buy-dot"></div><div class="buy-text"><span data-lang="de">Zahngold</span><span data-lang="en">Dental gold</span></div></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONDITIONS -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Konditionen</span>
+        <span data-lang="en">Conditions</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Was Sie wissen sollten</span>
+        <span data-lang="en">What you should know</span>
+      </h2>
+      <div class="info-row">
+        <div class="info-card">
+          <div class="info-val">20g</div>
+          <div class="info-label"><span data-lang="de">Mindestmenge Bruttogoldgewicht</span><span data-lang="en">Minimum gross gold weight</span></div>
+        </div>
+        <div class="info-card">
+          <div class="info-val">€50</div>
+          <div class="info-label"><span data-lang="de">Aufwandsentschädigung bei keinem Kauf</span><span data-lang="en">Visit fee if no purchase</span></div>
+        </div>
+      </div>
+      <div class="payment-strip">
+        <svg class="payment-icon" viewBox="0 0 30 30" fill="none">
+          <rect x="2" y="7" width="26" height="17" rx="3" stroke="#C9A84C" stroke-width="0.8"/>
+          <path d="M2 12h26" stroke="#C9A84C" stroke-width="0.8"/>
+          <path d="M7 19h7" stroke="#C9A84C" stroke-width="0.8" stroke-linecap="round"/>
+          <circle cx="22" cy="19" r="2.5" stroke="#C9A84C" stroke-width="0.8"/>
+        </svg>
+        <div>
+          <div class="payment-title"><span data-lang="de">Zahlung per Echtzeitüberweisung</span><span data-lang="en">Payment via instant bank transfer</span></div>
+          <div class="payment-sub">SEPA Instant Transfer — <span data-lang="de">innerhalb von Sekunden, 24/7</span><span data-lang="en">arrives within seconds, 24/7</span></div>
+        </div>
+      </div>
+      <p class="info-note">
+        <span data-lang="de">Die Aufwandsentschädigung entfällt bei erfolgreichem Ankauf. Nicht sicher, ob Sie genug Gold haben? Schreiben Sie uns einfach.</span>
+        <span data-lang="en">The visit fee is waived upon a successful purchase. Not sure if you have enough gold? Just write to us.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- CRYPTO -->
+  <section>
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Auszahlung in Krypto</span>
+        <span data-lang="en">Crypto payout</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Wir zahlen auch in Kryptowährung</span>
+        <span data-lang="en">We also pay in cryptocurrency</span>
+      </h2>
+      <p class="crypto-intro">
+        <span data-lang="de">Sie bevorzugen Bitcoin, Ethereum oder Solana? Kein Problem — wir zahlen den vereinbarten Betrag direkt in Ihre Wallet. Teilen Sie uns Ihre Präferenz einfach bei der Terminanfrage mit.</span>
+        <span data-lang="en">You prefer Bitcoin, Ethereum or Solana? No problem — we transfer the agreed amount directly to your wallet. Just let us know your preference when booking.</span>
+      </p>
+      <div class="crypto-grid">
+        <div class="crypto-card">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#F7931A" stroke-width="0.8" opacity="0.5"/><path d="M18.5 12.3c.2-1.4-.9-2.2-2.4-2.7l.5-1.9-1.1-.3-.5 1.9-.9-.2.5-1.9-1.1-.3-.5 1.9-2.2-.6-.3 1.1.8.2c.4.1.5.4.5.7l-1.1 4.5c-.1.3-.4.5-.8.4l-.8-.2-.5 1.2 2.2.6-.5 1.9 1.1.3.5-1.9.9.2-.5 1.9 1.1.3.5-2c2.2.4 3.8.2 4.5-1.5.5-1.5-.1-2.3-1.1-2.8.8-.2 1.3-.8 1.6-1.8zm-2.8 3.9c-.4 1.6-3.2.8-4.1.6l.7-2.9c.9.2 3.8.7 3.4 2.3zm.4-3.9c-.3 1.5-2.7.7-3.4.5l.7-2.6c.7.2 3.3.5 2.7 2.1z" fill="#F7931A" opacity="0.85"/></svg>
+          <div><div class="crypto-symbol" style="color:#F7931A">BTC</div><div class="crypto-name">Bitcoin</div></div>
+        </div>
+        <div class="crypto-card">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none"><circle cx="15" cy="15" r="13" stroke="#627EEA" stroke-width="0.8" opacity="0.5"/><path d="M15 6.5l-.1.5v11l.1.1 5-3L15 6.5z" fill="#627EEA" opacity="0.8"/><path d="M15 6.5L10 15.1l5 3V6.5z" fill="#627EEA" opacity="0.45"/><path d="M15 19.3l-.1.1v3.9l.1.2 5-7.1L15 19.3z" fill="#627EEA" opacity="0.8"/><path d="M15 23.5v-4.2l-5-2.9L15 23.5z" fill="#627EEA" opacity="0.45"/></svg>
+          <div><div class="crypto-symbol" style="color:#627EEA">ETH</div><div class="crypto-name">Ethereum</div></div>
+        </div>
+        <div class="crypto-card">
+          <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+            <defs><linearGradient id="solGrad2" x1="0" y1="1" x2="1" y2="0"><stop offset="0%" stop-color="#9945FF"/><stop offset="50%" stop-color="#43B4CA"/><stop offset="100%" stop-color="#19FB9B"/></linearGradient></defs>
+            <circle cx="15" cy="15" r="14" fill="#000"/>
+            <polygon points="8,19.5 8,21.5 19.5,21.5 22,19.5" fill="url(#solGrad2)"/>
+            <polygon points="8,14 8,16 22,16 22,14" fill="url(#solGrad2)"/>
+            <polygon points="10.5,8.5 8,10.5 22,10.5 22,8.5" fill="url(#solGrad2)"/>
+          </svg>
+          <div><div class="crypto-symbol" style="color:#9945FF">SOL</div><div class="crypto-name">Solana</div></div>
+        </div>
+
+      </div>
+      <div class="crypto-note">
+        <span data-lang="de">Der EUR-Betrag wird vorab vereinbart und zum aktuellen Kurs zum Zeitpunkt der Überweisung umgerechnet. Die Zahlung wird vor Ort auf dem Mobilgerät bestätigt.</span>
+        <span data-lang="en">EUR amount is agreed first, converted at the live rate at the moment of transfer. Payment confirmed on-site on mobile before the transaction is complete.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHATSAPP STRIP -->
+  <div class="wa-strip">
+    <span class="wa-text">
+      <span data-lang="de">Direkt per WhatsApp anfragen</span>
+      <span data-lang="en">Contact us directly on WhatsApp</span>
+    </span>
+    <a href="https://wa.me/491639760738" class="wa-btn" target="_blank">WhatsApp</a>
+  </div>
+
+  <!-- GOLDRECHNER -->
+  <section id="goldrechner">
+    <div class="calc-wrap">
+      <div class="section-label">
+        <span data-lang="de">Rechner</span>
+        <span data-lang="en">Calculator</span>
+      </div>
+      <h2 class="section-title" style="margin-bottom:8px;">
+        <span data-lang="de">Was ist Ihr Gold wert?</span>
+        <span data-lang="en">What is your gold worth?</span>
+      </h2>
+      <p class="calc-spot">
+        <span data-lang="de">Aktueller Goldkurs: </span>
+        <span data-lang="en">Live gold price: </span>
+        <span id="spot-display">wird geladen...</span>
+        <span id="spot-countdown" style="color:var(--faint);font-size:10px;margin-left:8px;"></span>
+      </p>
+
+      <div class="calc-controls">
+        <select class="calc-select" id="calc-alloy">
+          <option value="">Legierung wählen</option>
+          <option value="333">333 — 8 Karat</option>
+          <option value="585">585 — 14 Karat</option>
+          <option value="750">750 — 18 Karat</option>
+          <option value="916">916 — 22 Karat</option>
+          <option value="999">999 — Anlagegold</option>
+        </select>
+        <input class="calc-input" type="number" id="calc-weight" placeholder="Gewicht in Gramm" min="0" step="0.1" />
+      </div>
+
+      <div class="calc-result" id="calc-result">
+        <div class="calc-empty">
+          <span data-lang="de">Legierung und Gewicht eingeben um den Preis zu berechnen</span>
+          <span data-lang="en">Select alloy and enter weight to calculate</span>
+        </div>
+      </div>
+
+      <p class="calc-note">
+        <span data-lang="de">* Preise basieren auf dem tagesaktuellen Goldkurs und werden in Echtzeit aktualisiert. Der genaue Ankaufspreis wird beim Hausbesuch anhand des dann gültigen Kurses berechnet. Marktdurchschnitt basiert auf typischen Berliner Ankaufskonditionen.</span>
+        <span data-lang="en">* Prices are based on the live gold price updated in real time. The exact purchase price is calculated at the time of the home visit. Market average based on typical Berlin buying conditions.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- CONTACT FORM -->
+  <section id="kontakt">
+    <div class="section-inner">
+      <div class="section-label">
+        <span data-lang="de">Kontakt</span>
+        <span data-lang="en">Contact</span>
+      </div>
+      <h2 class="section-title">
+        <span data-lang="de">Termin anfragen</span>
+        <span data-lang="en">Request an appointment</span>
+      </h2>
+      <form name="contact" data-netlify="true" onsubmit="handleSubmit(event)">
+        <input type="hidden" name="form-name" value="contact" />
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Name</span><span data-lang="en">Name</span></label>
+          <input class="form-input" type="text" name="name" placeholder="Ihr Name / Your name" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Telefon oder E-Mail</span><span data-lang="en">Phone or email</span></label>
+          <input class="form-input" type="text" name="contact" placeholder="Ihre Kontaktdaten / Your contact details" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Berliner Bezirk</span><span data-lang="en">Berlin district</span></label>
+          <select class="form-input form-select" name="district" required>
+            <option value="" disabled selected>Bezirk wählen / Select district</option>
+            <option>Mitte</option>
+            <option>Charlottenburg-Wilmersdorf</option>
+            <option>Pankow</option>
+            <option>Friedrichshain-Kreuzberg</option>
+            <option>Tempelhof-Schöneberg</option>
+            <option>Steglitz-Zehlendorf</option>
+            <option>Neukölln</option>
+            <option>Treptow-Köpenick</option>
+            <option>Marzahn-Hellersdorf</option>
+            <option>Lichtenberg</option>
+            <option>Reinickendorf</option>
+            <option>Spandau</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Art &amp; Menge des Goldes</span><span data-lang="en">Type &amp; quantity of gold</span></label>
+          <input class="form-input" type="text" name="gold" placeholder="z.B. Goldschmuck, ca. 80g / e.g. jewellery, approx. 80g" required />
+        </div>
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Bevorzugte Auszahlungsart</span><span data-lang="en">Preferred payment method</span></label>
+          <select class="form-input form-select" name="payment">
+            <option value="" disabled selected>Bitte wählen / Please select</option>
+            <option>SEPA Echtzeitüberweisung / SEPA Instant Transfer</option>
+            <option>Bitcoin (BTC)</option>
+            <option>Ethereum (ETH)</option>
+            <option>Solana (SOL)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label class="form-label"><span data-lang="de">Nachricht (optional)</span><span data-lang="en">Message (optional)</span></label>
+          <textarea class="form-textarea" name="message" placeholder="Weitere Informationen / Additional information"></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          <span data-lang="de">Anfrage senden</span>
+          <span data-lang="en">Send request</span>
+        </button>
+        <p class="form-note">
+          <span data-lang="de">Wir melden uns innerhalb von 24 Stunden. Ihre Daten werden vertraulich behandelt.</span>
+          <span data-lang="en">We will get back to you within 24 hours. Your data is handled confidentially.</span>
+        </p>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">C. EDELMANN GOLDANKAUF</div>
+    <div class="footer-links">
+      <a href="#" class="footer-link">Impressum</a>
+      <a href="#" class="footer-link">Datenschutz</a>
+      <a href="#" class="footer-link">AGB</a>
+    </div>
+    <div class="footer-copy">© 2025 C. Edelmann Goldankauf · Berlin</div>
+  </footer>
+
+</div>
+
+<script>
+  function setLang(lang) {
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.querySelectorAll('.nav-lang').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.switch === lang);
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const btn = form.querySelector('.form-submit');
+    const data = new FormData(form);
+
+    fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(data).toString()
+    }).then(() => {
+      btn.textContent = '✓ Anfrage gesendet / Request sent';
+      btn.style.background = '#3a6a20';
+      btn.style.color = '#e8f0d8';
+      setTimeout(() => {
+        btn.innerHTML = '<span data-lang="de">Anfrage senden</span><span data-lang="en">Send request</span>';
+        btn.style.background = '';
+        btn.style.color = '';
+        form.reset();
+      }, 3000);
+    }).catch(error => console.error('Form error:', error));
+  }
+
+  // GOLD CALCULATOR
+  let spotPrice = null;
+  let countdown = 60;
+
+  async function fetchGoldPrice() {
+    try {
+      const res = await fetch('/.netlify/functions/goldprice');
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      const newPrice = data.price;
+      if (newPrice && newPrice > 0) {
+        spotPrice = newPrice;
+        document.getElementById('spot-display').textContent = '€' + spotPrice.toFixed(2) + ' / g (Feingold)';
+        countdown = 60;
+        calculatePayout();
+      }
+    } catch(e) {
+      console.warn('Gold price fetch failed:', e);
+      if (!spotPrice) {
+        spotPrice = 126.5;
+        document.getElementById('spot-display').textContent = '~€' + spotPrice.toFixed(2) + ' / g (Schätzwert)';
+        calculatePayout();
+      }
+    }
+  }
+
+  function calculatePayout() {
+    const alloy = document.getElementById('calc-alloy').value;
+    const weight = parseFloat(document.getElementById('calc-weight').value);
+    const result = document.getElementById('calc-result');
+
+    if (!alloy || !weight || weight <= 0 || !spotPrice) {
+      result.innerHTML = '<div class="calc-empty"><span>Legierung und Gewicht eingeben um den Preis zu berechnen</span></div>';
+      return;
+    }
+
+    const fineness = parseInt(alloy) / 1000;
+    const isAnlage = alloy === '999';
+    const edelmannPct = isAnlage ? 0.94 : 0.88;
+    const marketPct = isAnlage ? 0.90 : 0.84;
+
+    const fineGrams = weight * fineness;
+    const spotPerGrossGram = spotPrice * fineness;
+
+    const edelmannPerGram = spotPerGrossGram * edelmannPct;
+    const marketPerGram = spotPerGrossGram * marketPct;
+
+    const edelmannTotal = edelmannPerGram * weight;
+    const marketTotal = marketPerGram * weight;
+    const advantage = edelmannTotal - marketTotal;
+
+    const fmt = (n) => '€ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+    result.innerHTML = `
+      <div class="calc-row">
+        <span class="calc-row-label">Feingehalt</span>
+        <span class="calc-row-val">${fineGrams.toFixed(2)} g Feingold</span>
+      </div>
+      <div class="calc-row">
+        <span class="calc-row-label">Marktdurchschnitt Berlin (${Math.round(marketPct*100)}%)</span>
+        <span class="calc-row-val">${fmt(marketTotal)}</span>
+      </div>
+      <div class="calc-row edelmann">
+        <span class="calc-row-label">C. Edelmann (${Math.round(edelmannPct*100)}%)</span>
+        <span class="calc-row-val">${fmt(edelmannTotal)}</span>
+      </div>
+      <div class="calc-row advantage">
+        <span class="calc-row-label">Ihr Vorteil mit C. Edelmann</span>
+        <span class="calc-row-val">+ ${fmt(advantage)}</span>
+      </div>
+    `;
+  }
+
+  document.getElementById('calc-alloy').addEventListener('change', calculatePayout);
+  document.getElementById('calc-weight').addEventListener('input', calculatePayout);
+
+  fetchGoldPrice();
+  setInterval(fetchGoldPrice, 60000);
+
+  // Countdown timer
+  setInterval(() => {
+    countdown--;
+    if (countdown <= 0) countdown = 60;
+    const el = document.getElementById('spot-countdown');
+    if (el) el.textContent = '(Aktualisierung in ' + countdown + 's)';
+  }, 1000);
+</script>
+</body>
+</html>
