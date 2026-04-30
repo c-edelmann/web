@@ -375,6 +375,28 @@
     .calc-note { font-size: 10px; color: var(--faint); margin-top: 12px; font-style: italic; line-height: 1.6; }
     .calc-empty { text-align: center; padding: 32px; color: var(--faint); font-size: 13px; }
 
+    .calc-row-entry {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .calc-row-entry .calc-select { flex: 1.5; min-width: 160px; }
+    .calc-row-entry .calc-input { flex: 1; min-width: 100px; }
+    .calc-add-btn {
+      background: none;
+      border: 0.5px solid var(--border);
+      color: var(--gold);
+      font-family: var(--sans);
+      font-size: 12px;
+      letter-spacing: 1px;
+      padding: 8px 16px;
+      cursor: pointer;
+      margin: 8px 0 20px 0;
+      transition: border-color 0.2s;
+    }
+    .calc-add-btn:hover { border-color: var(--gold); }
+
     /* FOOTER */
     footer {
       padding: 36px 32px;
@@ -688,17 +710,22 @@
         <span id="spot-countdown" style="color:var(--faint);font-size:10px;margin-left:8px;"></span>
       </p>
 
-      <div class="calc-controls">
-        <select class="calc-select" id="calc-alloy">
-          <option value="">Legierung wählen</option>
-          <option value="333">333 — 8 Karat</option>
-          <option value="585">585 — 14 Karat</option>
-          <option value="750">750 — 18 Karat</option>
-          <option value="916">916 — 22 Karat</option>
-          <option value="999">999 — Anlagegold</option>
-        </select>
-        <input class="calc-input" type="number" id="calc-weight" placeholder="Gewicht in Gramm" min="0" step="0.1" />
+      <!-- Multi-alloy rows -->
+      <div id="calc-rows">
+        <div class="calc-row-entry">
+          <select class="calc-select">
+            <option value="">Legierung</option>
+            <option value="333">333 — 8 Karat</option>
+            <option value="585">585 — 14 Karat</option>
+            <option value="750">750 — 18 Karat</option>
+            <option value="916">916 — 22 Karat</option>
+            <option value="999">999 — Anlagegold</option>
+          </select>
+          <input class="calc-input" type="number" placeholder="Gramm" min="0" step="0.1" />
+        </div>
       </div>
+
+      <button class="calc-add-btn" onclick="addRow()">+ Legierung hinzufügen</button>
 
       <div class="calc-result" id="calc-result">
         <div class="calc-empty">
@@ -831,6 +858,89 @@
   let spotPrice = null;
   let countdown = 60;
 
+  function addRow() {
+    const container = document.getElementById('calc-rows');
+    const row = document.createElement('div');
+    row.className = 'calc-row-entry';
+    row.innerHTML = `
+      <select class="calc-select">
+        <option value="">Legierung</option>
+        <option value="333">333 — 8 Karat</option>
+        <option value="585">585 — 14 Karat</option>
+        <option value="750">750 — 18 Karat</option>
+        <option value="916">916 — 22 Karat</option>
+        <option value="999">999 — Anlagegold</option>
+      </select>
+      <input class="calc-input" type="number" placeholder="Gramm" min="0" step="0.1" />
+      <button onclick="this.parentElement.remove(); calculatePayout();" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px;padding:0 8px;">✕</button>
+    `;
+    container.appendChild(row);
+    row.querySelectorAll('select, input').forEach(el => el.addEventListener('change', calculatePayout));
+    row.querySelectorAll('input').forEach(el => el.addEventListener('input', calculatePayout));
+  }
+
+  function calculatePayout() {
+    const rows = document.querySelectorAll('.calc-row-entry');
+    const result = document.getElementById('calc-result');
+    if (!spotPrice) return;
+
+    let totalEdelmann = 0;
+    let totalMarket = 0;
+    let hasData = false;
+    let breakdown = '';
+
+    rows.forEach(row => {
+      const alloy = row.querySelector('select').value;
+      const weight = parseFloat(row.querySelector('input').value);
+      if (!alloy || !weight || weight <= 0) return;
+
+      hasData = true;
+      const fineness = parseInt(alloy) / 1000;
+      const isAnlage = alloy === '999';
+      const edelmannPct = isAnlage ? 0.94 : 0.88;
+      const marketPct = isAnlage ? 0.90 : 0.84;
+      const spotPerGross = spotPrice * fineness;
+      const edelmannVal = spotPerGross * edelmannPct * weight;
+      const marketVal = spotPerGross * marketPct * weight;
+      totalEdelmann += edelmannVal;
+      totalMarket += marketVal;
+
+      breakdown += `
+        <div class="calc-row" style="font-size:12px;">
+          <span class="calc-row-label">${alloy}er · ${weight}g</span>
+          <span class="calc-row-val" style="color:var(--muted);">${fmt(edelmannVal)}</span>
+        </div>`;
+    });
+
+    if (!hasData) {
+      result.innerHTML = '<div class="calc-empty"><span>Legierung und Gewicht eingeben um den Preis zu berechnen</span></div>';
+      return;
+    }
+
+    result.innerHTML = `
+      ${breakdown}
+      <div class="calc-row" style="border-top: 0.5px solid var(--border);">
+        <span class="calc-row-label">Marktdurchschnitt Berlin</span>
+        <span class="calc-row-val">${fmt(totalMarket)}</span>
+      </div>
+      <div class="calc-row edelmann">
+        <span class="calc-row-label">C. Edelmann</span>
+        <span class="calc-row-val">${fmt(totalEdelmann)}</span>
+      </div>
+      <div class="calc-row advantage">
+        <span class="calc-row-label">Ihr Vorteil mit C. Edelmann</span>
+        <span class="calc-row-val">+ ${fmt(totalEdelmann - totalMarket)}</span>
+      </div>`;
+  }
+
+  const fmt = (n) => '€ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+  // Add listeners to first row
+  document.querySelectorAll('.calc-row-entry select, .calc-row-entry input').forEach(el => {
+    el.addEventListener('change', calculatePayout);
+    el.addEventListener('input', calculatePayout);
+  });
+
   async function fetchGoldPrice() {
     try {
       const res = await fetch('/.netlify/functions/goldprice');
@@ -840,7 +950,35 @@
       if (newPrice && newPrice > 0) {
         spotPrice = newPrice;
         document.getElementById('spot-display').textContent = '€' + spotPrice.toFixed(2) + ' / g (Feingold)';
-        countdown = 60;
+        const now = new Date();
+        const time = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+        document.getElementById('spot-countdown').textContent = '(Stand: ' + time + ')';
+        calculatePayout();
+      }
+    } catch(e) {
+      if (!spotPrice) {
+        spotPrice = 126.5;
+        document.getElementById('spot-display').textContent = '~€' + spotPrice.toFixed(2) + ' / g (Schätzwert)';
+        calculatePayout();
+      }
+    }
+  }
+
+  fetchGoldPrice();
+  setInterval(fetchGoldPrice, 60000);
+
+  async function fetchGoldPrice() {
+    try {
+      const res = await fetch('/.netlify/functions/goldprice');
+      if (!res.ok) throw new Error('API error');
+      const data = await res.json();
+      const newPrice = data.price;
+      if (newPrice && newPrice > 0) {
+        spotPrice = newPrice;
+        document.getElementById('spot-display').textContent = '€' + spotPrice.toFixed(2) + ' / g (Feingold)';
+        const now = new Date();
+        const time = now.toLocaleTimeString('de-DE', {hour: '2-digit', minute: '2-digit', second: '2-digit'});
+        document.getElementById('spot-countdown').textContent = '(Stand: ' + time + ')';
         calculatePayout();
       }
     } catch(e) {
@@ -853,66 +991,6 @@
     }
   }
 
-  function calculatePayout() {
-    const alloy = document.getElementById('calc-alloy').value;
-    const weight = parseFloat(document.getElementById('calc-weight').value);
-    const result = document.getElementById('calc-result');
-
-    if (!alloy || !weight || weight <= 0 || !spotPrice) {
-      result.innerHTML = '<div class="calc-empty"><span>Legierung und Gewicht eingeben um den Preis zu berechnen</span></div>';
-      return;
-    }
-
-    const fineness = parseInt(alloy) / 1000;
-    const isAnlage = alloy === '999';
-    const edelmannPct = isAnlage ? 0.94 : 0.88;
-    const marketPct = isAnlage ? 0.90 : 0.84;
-
-    const fineGrams = weight * fineness;
-    const spotPerGrossGram = spotPrice * fineness;
-
-    const edelmannPerGram = spotPerGrossGram * edelmannPct;
-    const marketPerGram = spotPerGrossGram * marketPct;
-
-    const edelmannTotal = edelmannPerGram * weight;
-    const marketTotal = marketPerGram * weight;
-    const advantage = edelmannTotal - marketTotal;
-
-    const fmt = (n) => '€ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-    result.innerHTML = `
-      <div class="calc-row">
-        <span class="calc-row-label">Feingehalt</span>
-        <span class="calc-row-val">${fineGrams.toFixed(2)} g Feingold</span>
-      </div>
-      <div class="calc-row">
-        <span class="calc-row-label">Marktdurchschnitt Berlin (${Math.round(marketPct*100)}%)</span>
-        <span class="calc-row-val">${fmt(marketTotal)}</span>
-      </div>
-      <div class="calc-row edelmann">
-        <span class="calc-row-label">C. Edelmann (${Math.round(edelmannPct*100)}%)</span>
-        <span class="calc-row-val">${fmt(edelmannTotal)}</span>
-      </div>
-      <div class="calc-row advantage">
-        <span class="calc-row-label">Ihr Vorteil mit C. Edelmann</span>
-        <span class="calc-row-val">+ ${fmt(advantage)}</span>
-      </div>
-    `;
-  }
-
-  document.getElementById('calc-alloy').addEventListener('change', calculatePayout);
-  document.getElementById('calc-weight').addEventListener('input', calculatePayout);
-
-  fetchGoldPrice();
-  setInterval(fetchGoldPrice, 60000);
-
-  // Countdown timer
-  setInterval(() => {
-    countdown--;
-    if (countdown <= 0) countdown = 60;
-    const el = document.getElementById('spot-countdown');
-    if (el) el.textContent = '(Aktualisierung in ' + countdown + 's)';
-  }, 1000);
 </script>
 </body>
 </html>
