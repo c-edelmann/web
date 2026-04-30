@@ -379,10 +379,10 @@
       display: flex;
       gap: 12px;
       margin-bottom: 10px;
-      flex-wrap: wrap;
+      align-items: center;
     }
-    .calc-row-entry .calc-select { flex: 1.5; min-width: 160px; }
-    .calc-row-entry .calc-input { flex: 1; min-width: 100px; }
+    .calc-row-entry .calc-select { flex: 1.5; min-width: 0; }
+    .calc-row-entry .calc-input { flex: 1; min-width: 0; }
     .calc-add-btn {
       background: none;
       border: 0.5px solid var(--border);
@@ -921,11 +921,11 @@
     result.innerHTML = `
       ${breakdown}
       <div class="calc-row" style="border-top: 0.5px solid var(--border);">
-        <span class="calc-row-label">Marktdurchschnitt Berlin</span>
+        <span class="calc-row-label">Marktdurchschnitt Berlin (−16%)</span>
         <span class="calc-row-val">${fmt(totalMarket)}</span>
       </div>
       <div class="calc-row edelmann">
-        <span class="calc-row-label">C. Edelmann</span>
+        <span class="calc-row-label">C. Edelmann (−12%)</span>
         <span class="calc-row-val">${fmt(totalEdelmann)}</span>
       </div>
       <div class="calc-row advantage">
