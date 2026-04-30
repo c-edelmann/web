@@ -716,10 +716,11 @@
           <select class="calc-select">
             <option value="">Legierung</option>
             <option value="333">333 — 8 Karat</option>
+            <option value="375">375 — 9 Karat</option>
             <option value="585">585 — 14 Karat</option>
             <option value="750">750 — 18 Karat</option>
             <option value="916">916 — 22 Karat</option>
-            <option value="999">999 — Anlagegold</option>
+            <option value="999">999 — Anlagegold (banküblich)</option>
           </select>
           <input class="calc-input" type="number" placeholder="Gramm" min="0" step="0.1" />
           <button onclick="this.parentElement.remove(); calculatePayout();" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px;padding:0 8px;">✕</button>
@@ -867,10 +868,11 @@
       <select class="calc-select">
         <option value="">Legierung</option>
         <option value="333">333 — 8 Karat</option>
+            <option value="375">375 — 9 Karat</option>
         <option value="585">585 — 14 Karat</option>
         <option value="750">750 — 18 Karat</option>
         <option value="916">916 — 22 Karat</option>
-        <option value="999">999 — Anlagegold</option>
+        <option value="999">999 — Anlagegold (banküblich)</option>
       </select>
       <input class="calc-input" type="number" placeholder="Gramm" min="0" step="0.1" />
       <button onclick="this.parentElement.remove(); calculatePayout();" style="background:none;border:none;color:var(--faint);cursor:pointer;font-size:16px;padding:0 8px;">✕</button>
@@ -890,6 +892,9 @@
     let hasData = false;
     let breakdown = '';
 
+    let hasAnlage = false;
+    let hasScrap = false;
+
     rows.forEach(row => {
       const alloy = row.querySelector('select').value;
       const weight = parseFloat(row.querySelector('input').value);
@@ -898,8 +903,9 @@
       hasData = true;
       const fineness = parseInt(alloy) / 1000;
       const isAnlage = alloy === '999';
+      if (isAnlage) hasAnlage = true; else hasScrap = true;
       const edelmannPct = isAnlage ? 0.94 : 0.88;
-      const marketPct = isAnlage ? 0.90 : 0.84;
+      const marketPct = isAnlage ? 0.91 : 0.84;
       const spotPerGross = spotPrice * fineness;
       const edelmannVal = spotPerGross * edelmannPct * weight;
       const marketVal = spotPerGross * marketPct * weight;
@@ -909,7 +915,7 @@
       breakdown += `
         <div class="calc-row" style="font-size:12px;">
           <span class="calc-row-label">${alloy}er · ${weight}g</span>
-          <span class="calc-row-val" style="color:var(--muted);">${fmt(edelmannVal)}</span>
+          <span class="calc-row-val" style="color:var(--text);">${fmt(edelmannVal)}</span>
         </div>`;
     });
 
@@ -918,14 +924,17 @@
       return;
     }
 
+    const edelmannPctDisplay = hasAnlage && !hasScrap ? '−5%' : hasAnlage ? 'mix' : '−12%';
+    const marketPctDisplay = hasAnlage && !hasScrap ? '−8%' : hasAnlage ? 'mix' : '−16%';
+
     result.innerHTML = `
       ${breakdown}
-      <div class="calc-row" style="border-top: 0.5px solid var(--border);">
-        <span class="calc-row-label">Marktdurchschnitt Berlin (−16%)</span>
+      <div class="calc-row" style="border-top: 0.5px solid var(--border); color:var(--text);">
+        <span class="calc-row-label">Marktdurchschnitt Berlin (${marketPctDisplay})</span>
         <span class="calc-row-val">${fmt(totalMarket)}</span>
       </div>
       <div class="calc-row edelmann">
-        <span class="calc-row-label">C. Edelmann (−12%)</span>
+        <span class="calc-row-label">C. Edelmann (${edelmannPctDisplay})</span>
         <span class="calc-row-val">${fmt(totalEdelmann)}</span>
       </div>
       <div class="calc-row advantage">
@@ -964,6 +973,13 @@
       }
     }
   }
+
+  // Prevent scroll from changing number inputs
+  document.addEventListener('wheel', function(e) {
+    if (document.activeElement.type === 'number') {
+      document.activeElement.blur();
+    }
+  }, { passive: false });
 
   fetchGoldPrice();
   setInterval(fetchGoldPrice, 60000);
